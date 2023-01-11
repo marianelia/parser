@@ -25,7 +25,9 @@ def ns_and_func():
     index = clang.cindex.Index.create()
     translation_unit = index.parse(file_name, args=['-std=c++17'])
     filterByNodeFunctionsDecl(translation_unit.cursor.get_children(), 
-                    [clang.cindex.CursorKind.FUNCTION_DECL, clang.cindex.CursorKind.NAMESPACE], result_func)
+                    [clang.cindex.CursorKind.FUNCTION_DECL, clang.cindex.CursorKind.NAMESPACE]
+                     , result_func
+                    )
 
     result_func.printForTests()
 

@@ -6,7 +6,7 @@ class DataFromFunc:
         self.namespace :list = []
         self.name :string
         self.output_param :string
-        self.input_params :DataFromParam
+        self.input_params :DataFromParam = DataFromParam() #list!!! (many!!)
         pass
 
     def setNamespace(self, ns:string) -> None:
