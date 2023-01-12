@@ -6,7 +6,7 @@ class DataFromFunc:
         self.namespace :list = []
         self.name :string
         self.output_param :string
-        self.input_params :DataFromParam = DataFromParam() #list!!! (many!!)
+        self.list_input_params :list[DataFromParam] = []
         pass
 
     def setNamespace(self, ns:string) -> None:
@@ -22,14 +22,17 @@ class DataFromFunc:
         self.output_param = out_param.partition('(')[0] #DELETE space after type???
 
     def setInpParam(self, inp_type:string, inp_name:string) -> None:
-        self.input_params.setType(inp_type)
-        self.input_params.setName(inp_name)
+        input_params :DataFromParam = DataFromParam()
+        input_params.setType(inp_type)
+        input_params.setName(inp_name)
+        self.list_input_params.append(input_params)
 
     def printForTests(self):
         print(self.namespace)
         print(self.name)
         print(self.output_param)
-        print(self.input_params.printForTests())
+        for num_inp_param in range(len(self.list_input_params)):
+            print(self.list_input_params[num_inp_param].printForTests())
 
 
 class DataFromParam:
