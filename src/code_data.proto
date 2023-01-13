@@ -2,18 +2,18 @@ syntax = "proto3";
 
 message File
 {
-    repeated Struct struct_list = 1;
-    repeated Function function_list = 2;
+    string file_name = 1;
+    repeated Struct struct_list = 2;
+    repeated Function function_list = 3;
 }
 
 message Struct 
 {
-    string file_name = 1;
-    repeated string namespace = 2;
-    string name = 3;
+    repeated string namespace = 1;
+    string name = 2;
 
-    repeated Method methods = 4;
-    repeated Variable variables = 5; 
+    repeated Method methods = 3;
+    repeated Variable variables = 4; 
 }
 
 message Method
@@ -24,11 +24,10 @@ message Method
 
 message Function
 {
-    string file_name = 1;
-    repeated string namespace = 2;
-    string name = 3;
-    string output_param = 4;
-    repeated Param input_params = 5;
+    repeated string namespace = 1;
+    string name = 2;
+    string output_param = 3;
+    repeated Param input_params = 4;
 }
 
 message Variable

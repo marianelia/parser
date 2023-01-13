@@ -53,15 +53,17 @@ class DataFromParam:
 
 
 
-if __name__ == '__main__':
-    function_decl = code_data_pb2.Function()
-    function_decl.file_name = "a.h"
-    ns = function_decl.namespace.extend(["std", "std1"])
-    function_decl.name = "func"
-    function_decl.output_param = "int"
+# if __name__ == '__main__':
+#     function_decl = code_data_pb2.Function()
+#     function_decl.file_name = "a.h"
+#     ns = function_decl.namespace.extend(["std", "std1"])
+#     function_decl.name = "func"
+#     function_decl.output_param = "int"
 
-    serializeToString = function_decl.SerializeToString()
-    print(serializeToString,type(serializeToString))
-    # to file
-    function_decl.ParseFromString(serializeToString)
-    print(function_decl)
+
+
+#     serializeToString = function_decl.SerializeToString()
+#     print(serializeToString,type(serializeToString))
+#     # to file
+#     function_decl.ParseFromString(serializeToString)
+#     print(function_decl)
