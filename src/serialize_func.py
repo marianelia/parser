@@ -27,12 +27,12 @@ class DataFromFunc:
         input_params.setName(inp_name)
         self.list_input_params.append(input_params)
 
-    def printForTests(self):
+    def printForTests(self) -> None:
         print(self.namespace)
         print(self.name)
         print(self.output_param)
         for num_inp_param in range(len(self.list_input_params)):
-            print(self.list_input_params[num_inp_param].printForTests())
+            self.list_input_params[num_inp_param].printForTests()
 
 
 class DataFromParam:
@@ -47,7 +47,7 @@ class DataFromParam:
     def setType(self, type:string) -> None:
         self.type = type
 
-    def printForTests(self):
+    def printForTests(self)-> None:
         print(self.name)
         print(self.type)
 

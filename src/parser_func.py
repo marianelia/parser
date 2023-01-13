@@ -13,7 +13,7 @@ def getFunction(node) -> None:
         parent_node = parent_node.lexical_parent
 
     findInputParam(node, result_func)
-    result_func.printForTests()     #откуда-то в структуре появляется none
+    result_func.printForTests()
     
 
 def findInputParam(node, result_func:DataFromFunc) -> None:
