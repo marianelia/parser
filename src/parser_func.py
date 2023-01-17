@@ -1,6 +1,10 @@
 import clang.cindex
 import typing
 from serialize_func import DataFromFunc
+from data_to_proto_format import Data
+
+#!!change!!
+data :Data = Data()
 
 def getFunction(node) -> None:
     result_func:DataFromFunc = DataFromFunc()
@@ -14,6 +18,8 @@ def getFunction(node) -> None:
 
     findInputParam(node, result_func)
     result_func.printForTests()
+    data.addDataFromFunc(result_func)
+
     
 
 def findInputParam(node, result_func:DataFromFunc) -> None:
@@ -38,5 +44,8 @@ def filterByNodeFunctionsDecl(
     ):
     for node in nodes:
         findNodeFunction(node)
+
+    #!!!change!!!
+    data.serializeData()
                     
     #return result
