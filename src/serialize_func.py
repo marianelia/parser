@@ -43,7 +43,7 @@ class DataFromFunc:
         self.__output_param = out_param
 
     def setOutParamFromDecl(self, out_param:string) -> None:
-        self.__output_param = out_param.partition('(')[0] #DELETE space after type???
+        self.__output_param = out_param.partition(' (')[0] #DELETE space after type???
 
     def setInpParam(self, inp_type:string, inp_name:string) -> None:
         input_params :DataFromParam = DataFromParam()
