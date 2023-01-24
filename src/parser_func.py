@@ -26,7 +26,6 @@ class Parser:
         result_func:DataFromFunc = DataFromFunc()
         result_func.setName(node.spelling)
         result_func.setOutParamFromDecl(node.type.spelling)
-
         self.__getNamespaces(node.lexical_parent, result_func)
 
         self.__findInputParam(node, result_func)
@@ -35,11 +34,21 @@ class Parser:
 
     def __getStruct(self, node) -> None:
         struct:DataFromStruct = DataFromStruct()
-        print(node.spelling)
+        struct.setName(node.spelling)
+        self.__getNamespaces(node.lexical_parent, struct)
+        self.__findMethod(node, struct)
+        self.__findVariable(node, struct)
+        struct.printForTests()
+        self.__data.addDataFromStruct(struct)
+
+    def __findMethod(self, node, struct:DataFromStruct) -> None: 
+        children_node = node.get_children()
+        for child in children_node:
+            if child.kind == clang.cindex.CursorKind.CXX_METHOD:
+                print(child.spelling)
         
-    # def __getClass(self, node) -> None:
-    #     #print(node.spelling)
-    #     pass
+    def __findVariable(self, node, struct:DataFromStruct) -> None:
+        pass
 
     def __findInputParam(self, node, result_func:DataFromFunc) -> None:
         input_params = node.get_children()
@@ -62,10 +71,6 @@ class Parser:
                 or node.kind == clang.cindex.CursorKind.CLASS_DECL):
             self.__getStruct(node)
             return
-
-        # if node.kind == clang.cindex.CursorKind.CLASS_DECL:
-        #     self.__getClass(node)
-        #     return
 
         if node.kind == clang.cindex.CursorKind.NAMESPACE:
             children_node = node.get_children()
