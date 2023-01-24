@@ -1,7 +1,7 @@
 import clang.cindex
 import typing
-from src.classes_for_tree import DataFromFunc, DataFromStruct
-from src.data import Data
+from classes_for_tree import DataFromFunc, DataFromStruct
+from data import Data
 import string
 
 class Parser:

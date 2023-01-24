@@ -1,4 +1,4 @@
-from src.classes_for_tree import *
+from classes_for_tree import *
 import code_data_pb2
 import string
 
@@ -7,7 +7,6 @@ class Data:
         self.__list_data_func :list[DataFromFunc] = []
         self.__list_data_struct :list[DataFromStruct] = []
         #...
-        pass
 
     def addDataFromFunc(self, data:DataFromFunc):
         self.__list_data_func.append(data)
@@ -24,7 +23,7 @@ class Data:
 
         for num_data_struct in range(len(self.__list_data_struct)):
             func_obj = file.struct_list.add()
-            self.serializeFunc(func_obj, self.__list_data_struct[num_data_struct])
+            self.serializeStruct(func_obj, self.__list_data_struct[num_data_struct])
 
         serializeToString = file.SerializeToString()
         print(serializeToString,type(serializeToString))
