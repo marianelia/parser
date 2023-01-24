@@ -5,12 +5,16 @@ import string
 class Data:
     def __init__(self) -> None:
         self.__list_data_func :list[DataFromFunc] = []
+        self.__list_data_struct :list[DataFromStruct] = []
         #...
         pass
 
     def addDataFromFunc(self, data:DataFromFunc):
         self.__list_data_func.append(data)
     
+    def addDataFromStruct(self, data:DataFromStruct):
+        self.__list_data_struct.append(data)
+
     def serializeData(self):
         file = code_data_pb2.File()
         #file.file_name = ..  
@@ -23,7 +27,9 @@ class Data:
         file.ParseFromString(serializeToString)
         print(file)
         
-            
+    def serializeStruct(self, struct_proto_format, struct:DataFromStruct):
+        pass
+
     def serializeFunc(self, func_proto_format, func:DataFromFunc):
         func_proto_format.namespace.extend(func.getNamespaces())
         func_proto_format.name = func.getName()
