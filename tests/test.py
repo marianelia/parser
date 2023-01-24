@@ -5,8 +5,8 @@ sys.path.append(str(pathlib.Path(sys.path[0]).resolve().parent / "src"))
 from parser_func import Parser
 from serialize_func import DataFromFunc
 
-fn1 = '/home/maria/parser/tests/ns_func.cpp'
-fn2 = '/home/maria/parser/tests/struct.cpp'
+fn1 = '/home/maria/parser/tests/test1.cpp'
+fn2 = '/home/maria/parser/tests/test2.cpp'
 file_names = [fn1, fn2]
 
 

@@ -1,7 +1,7 @@
 import clang.cindex
 import typing
-from serialize_func import DataFromFunc, DataFromStruct
-from data_to_proto_format import Data
+from src.classes_for_tree import DataFromFunc, DataFromStruct
+from src.data import Data
 import string
 
 class Parser:

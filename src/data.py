@@ -1,4 +1,4 @@
-from serialize_func import *
+from src.classes_for_tree import *
 import code_data_pb2
 import string
 
@@ -21,6 +21,10 @@ class Data:
         for num_data_func in range(len(self.__list_data_func)):
             func_obj = file.function_list.add()
             self.serializeFunc(func_obj, self.__list_data_func[num_data_func])
+
+        for num_data_struct in range(len(self.__list_data_struct)):
+            func_obj = file.struct_list.add()
+            self.serializeFunc(func_obj, self.__list_data_struct[num_data_struct])
 
         serializeToString = file.SerializeToString()
         print(serializeToString,type(serializeToString))
