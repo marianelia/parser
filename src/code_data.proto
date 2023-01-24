@@ -33,7 +33,7 @@ message Function
 message Variable
 {
     string access = 1;
-    Param variables = 2;
+    Param variable = 2;
 }
 
 message Param 

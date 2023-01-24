@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x13src/code_data.proto\"Y\n\x04\x46ile\x12\x11\n\tfile_name\x18\x01 \x01(\t\x12\x1c\n\x0bstruct_list\x18\x02 \x03(\x0b\x32\x07.Struct\x12 \n\rfunction_list\x18\x03 \x03(\x0b\x32\t.Function\"a\n\x06Struct\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x07methods\x18\x03 \x03(\x0b\x32\x07.Method\x12\x1c\n\tvariables\x18\x04 \x03(\x0b\x32\t.Variable\"5\n\x06Method\x12\x0e\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\t\x12\x1b\n\x08\x66unction\x18\x02 \x01(\x0b\x32\t.Function\"_\n\x08\x46unction\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0coutput_param\x18\x03 \x01(\t\x12\x1c\n\x0cinput_params\x18\x04 \x03(\x0b\x32\x06.Param\"5\n\x08Variable\x12\x0e\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\t\x12\x19\n\tvariables\x18\x02 \x01(\x0b\x32\x06.Param\"#\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\x13src/code_data.proto\"Y\n\x04\x46ile\x12\x11\n\tfile_name\x18\x01 \x01(\t\x12\x1c\n\x0bstruct_list\x18\x02 \x03(\x0b\x32\x07.Struct\x12 \n\rfunction_list\x18\x03 \x03(\x0b\x32\t.Function\"a\n\x06Struct\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x07methods\x18\x03 \x03(\x0b\x32\x07.Method\x12\x1c\n\tvariables\x18\x04 \x03(\x0b\x32\t.Variable\"5\n\x06Method\x12\x0e\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\t\x12\x1b\n\x08\x66unction\x18\x02 \x01(\x0b\x32\t.Function\"_\n\x08\x46unction\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0coutput_param\x18\x03 \x01(\t\x12\x1c\n\x0cinput_params\x18\x04 \x03(\x0b\x32\x06.Param\"4\n\x08Variable\x12\x0e\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\t\x12\x18\n\x08variable\x18\x02 \x01(\x0b\x32\x06.Param\"#\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\tb\x06proto3')
 )
 
 
@@ -227,7 +227,7 @@ _VARIABLE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='variables', full_name='Variable.variables', index=1,
+      name='variable', full_name='Variable.variable', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -246,7 +246,7 @@ _VARIABLE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=365,
-  serialized_end=418,
+  serialized_end=417,
 )
 
 
@@ -283,8 +283,8 @@ _PARAM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=420,
-  serialized_end=455,
+  serialized_start=419,
+  serialized_end=454,
 )
 
 _FILE.fields_by_name['struct_list'].message_type = _STRUCT
@@ -293,7 +293,7 @@ _STRUCT.fields_by_name['methods'].message_type = _METHOD
 _STRUCT.fields_by_name['variables'].message_type = _VARIABLE
 _METHOD.fields_by_name['function'].message_type = _FUNCTION
 _FUNCTION.fields_by_name['input_params'].message_type = _PARAM
-_VARIABLE.fields_by_name['variables'].message_type = _PARAM
+_VARIABLE.fields_by_name['variable'].message_type = _PARAM
 DESCRIPTOR.message_types_by_name['File'] = _FILE
 DESCRIPTOR.message_types_by_name['Struct'] = _STRUCT
 DESCRIPTOR.message_types_by_name['Method'] = _METHOD
