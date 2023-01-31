@@ -28,15 +28,12 @@ class Parser:
         data_func.setOutParamFromDecl(node.type.spelling)
         self.__getNamespaces(node.lexical_parent, data_func)
         self.__findInputParam(node, data_func)
-        data_func.printForTests()
+        #data_func.printForTests()
         return data_func
 
     def __getInfoFromFunctionNode(self, node) -> None:
         data_func = self.__getFunction(node)
         self.__data.addDataFromFunc(data_func)
-
-    # def __getInfoFromMethodNode(self, node) -> None:
-    #     data_func = self.__getFunction(node)
 
     def __getStruct(self, node) -> None:
         struct:DataFromStruct = DataFromStruct()
@@ -50,6 +47,8 @@ class Parser:
     def __findMethod(self, node, struct:DataFromStruct) -> None: 
         children_node = node.get_children()
         for child in children_node:
+            # if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
+            #     print("ACCESS" + str(child.spelling))
             if child.kind == clang.cindex.CursorKind.CXX_METHOD:
                 #пока без доступа
                 struct.setMethod("", self.__getFunction(child))
