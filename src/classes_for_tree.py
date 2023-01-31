@@ -27,6 +27,12 @@ class DataFromVariable:
         self.__access :string = access
         self.__variable :DataFromParam = param
 
+    def getAccess(self) -> string:
+        return self.__access
+
+    def getVariable(self) -> DataFromParam:
+        return self.__variable
+
     def printForTests(self)-> None:
         print(self.__access)
         self.__variable.printForTests()
@@ -125,7 +131,7 @@ class DataFromStruct:
         return self.__list_methods[index]
 
 
-    def setVariable(self, access:string, var:DataFromVariable) -> None:
+    def setVariable(self, access:string, var:DataFromParam) -> None:
         variable :DataFromVariable = DataFromVariable(access, var)
         self.__list_variable.append(variable)
 

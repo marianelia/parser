@@ -39,22 +39,15 @@ class Data:
     def serializeStruct(self, struct_proto_format, struct:DataFromStruct):
         struct_proto_format.namespace.extend(struct.getNamespaces())
         struct_proto_format.name = struct.getName()
-        
-        print("len(struct.getMethods()) " + str(len(struct.getMethods())))
 
         for num_method in range(len(struct.getMethods())):
             method_obj = struct_proto_format.methods.add()
-
-            print(struct.getMethodByIndex(num_method).getFunction().getName())
-
             self.serializeMethod(method_obj, struct.getMethodByIndex(num_method))
 
 
     def serializeMethod(self, method_proto_format, method:DataFromMethod):
         method_proto_format.access = method.getAccess()
         # func_proto_format = method_proto_format.function.add()
-        #print(method.getFunction().getName())
-
         self.serializeFunc(method_proto_format.function, method.getFunction())
 
         

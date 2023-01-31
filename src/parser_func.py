@@ -1,6 +1,6 @@
 import clang.cindex
 import typing
-from classes_for_tree import DataFromFunc, DataFromStruct, DataFromMethod
+from classes_for_tree import DataFromFunc, DataFromStruct, DataFromMethod, DataFromParam
 from data import Data
 import string
 
@@ -51,10 +51,18 @@ class Parser:
         children_node = node.get_children()
         for child in children_node:
             if child.kind == clang.cindex.CursorKind.CXX_METHOD:
-                #пока без доступа!!!!
+                #пока без доступа
                 struct.setMethod("", self.__getFunction(child))
         
     def __findVariable(self, node, struct:DataFromStruct) -> None:
+        children_node = node.get_children()
+        for child in children_node:
+            if child.kind == clang.cindex.CursorKind.FIELD_DECL:
+                #пока без доступа
+                variable = DataFromParam()
+                variable.setName(child.spelling)
+                variable.setType(child.type.spelling)
+                struct.setVariable("", variable)
         pass
 
     def __findInputParam(self, node, result_func:DataFromFunc) -> None:
