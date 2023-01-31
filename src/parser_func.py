@@ -1,6 +1,6 @@
 import clang.cindex
 import typing
-from classes_for_tree import DataFromFunc, DataFromStruct
+from classes_for_tree import DataFromFunc, DataFromStruct, DataFromMethod
 from data import Data
 import string
 
@@ -22,15 +22,21 @@ class Parser:
             el_of_tree.setNamespace(node.spelling)
             node = node.lexical_parent
 
-    def __getFunction(self, node) -> None:
-        result_func:DataFromFunc = DataFromFunc()
-        result_func.setName(node.spelling)
-        result_func.setOutParamFromDecl(node.type.spelling)
-        self.__getNamespaces(node.lexical_parent, result_func)
+    def __getFunction(self, node) -> DataFromFunc:
+        data_func = DataFromFunc()
+        data_func.setName(node.spelling)
+        data_func.setOutParamFromDecl(node.type.spelling)
+        self.__getNamespaces(node.lexical_parent, data_func)
+        self.__findInputParam(node, data_func)
+        data_func.printForTests()
+        return data_func
 
-        self.__findInputParam(node, result_func)
-        result_func.printForTests()
-        self.__data.addDataFromFunc(result_func)
+    def __getInfoFromFunctionNode(self, node) -> None:
+        data_func = self.__getFunction(node)
+        self.__data.addDataFromFunc(data_func)
+
+    # def __getInfoFromMethodNode(self, node) -> None:
+    #     data_func = self.__getFunction(node)
 
     def __getStruct(self, node) -> None:
         struct:DataFromStruct = DataFromStruct()
@@ -45,7 +51,8 @@ class Parser:
         children_node = node.get_children()
         for child in children_node:
             if child.kind == clang.cindex.CursorKind.CXX_METHOD:
-                print(child.spelling)
+                #пока без доступа!!!!
+                struct.setMethod("", self.__getFunction(child))
         
     def __findVariable(self, node, struct:DataFromStruct) -> None:
         pass
@@ -58,7 +65,7 @@ class Parser:
 
     def __findNodeFunction(self, node) -> None:
         if node.kind == clang.cindex.CursorKind.FUNCTION_DECL:
-            self.__getFunction(node)
+            self.__getInfoFromFunctionNode(node)
             return
 
         if node.kind == clang.cindex.CursorKind.NAMESPACE:

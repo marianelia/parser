@@ -83,6 +83,12 @@ class DataFromMethod:
     def __init__(self, access: string, func : DataFromFunc) -> None:
         self.__access :string = access
         self.__function :DataFromFunc = func
+
+    def getAccess(self) -> string:
+        return self.__access
+
+    def getFunction(self) -> DataFromFunc:
+        return self.__function
         
     def printForTests(self)-> None:
         print(self.__access)
@@ -108,25 +114,25 @@ class DataFromStruct:
     def getNamespaces(self) -> list:
         return self.__namespaces
 
-    def setMethod(self, access:string, func:DataFromMethod) -> None:
+    def setMethod(self, access:string, func:DataFromFunc) -> None:
         method :DataFromMethod = DataFromMethod(access, func)
         self.__list_methods.append(method)
 
     def getMethods(self) -> list:
         return self.__list_methods
 
-    def getMethodByIndex(self, index:int) -> DataFromParam:
+    def getMethodByIndex(self, index:int) -> DataFromMethod:
         return self.__list_methods[index]
 
 
-    def setVariable(self, access:string, func:DataFromMethod) -> None:
-        method :DataFromMethod = DataFromMethod(access, func)
-        self.__list_methods.append(method)
+    def setVariable(self, access:string, var:DataFromVariable) -> None:
+        variable :DataFromVariable = DataFromVariable(access, var)
+        self.__list_variable.append(variable)
 
     def getVariable(self) -> list:
         return self.__list_variable
 
-    def getVariableByIndex(self, index:int) -> DataFromParam:
+    def getVariableByIndex(self, index:int) -> DataFromVariable:
         return self.__list_variable[index]
 
     def printForTests(self)-> None:
@@ -138,5 +144,3 @@ class DataFromStruct:
 
         for num_var in range(len(self.__list_variable)):
             self.__list_variable[num_var].printForTests()
-
-

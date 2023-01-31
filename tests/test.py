@@ -4,9 +4,13 @@ sys.path.append(str(pathlib.Path(sys.path[0]).resolve().parent / "src"))
 
 from parser_func import Parser
 
-fn1 = '/home/maria/parser/tests/test1.cpp'
-fn2 = '/home/maria/parser/tests/test2.cpp'
-file_names = [fn1, fn2]
+root = str(pathlib.Path(sys.path[0]).resolve())
+fn1 = root + '/test1.cpp'
+fn2 = root +'/test2.cpp'
+file_names = [
+    # fn1, 
+    fn2
+    ]
 
 
 if __name__ == '__main__':

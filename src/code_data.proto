@@ -41,3 +41,8 @@ message Param
     string name = 1;
     string type = 2;
 }
+
+enum Access {
+    PUBLIC = 0;
+    PRIVATE = 1;
+}
