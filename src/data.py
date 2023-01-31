@@ -44,6 +44,14 @@ class Data:
             method_obj = struct_proto_format.methods.add()
             self.serializeMethod(method_obj, struct.getMethodByIndex(num_method))
 
+        for num_var in range(len(struct.getVariable())):
+            var_obj = struct_proto_format.variables.add()
+            self.serializeVariable(var_obj, struct.getVariableByIndex(num_var))
+
+    def serializeVariable(self, var_proto_format, var:DataFromVariable):
+        var_proto_format.access = var.getAccess()
+        self.serializeInputParams(var_proto_format.variable, var.getVariable())
+    
 
     def serializeMethod(self, method_proto_format, method:DataFromMethod):
         method_proto_format.access = method.getAccess()
