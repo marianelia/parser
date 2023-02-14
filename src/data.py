@@ -48,17 +48,40 @@ class Data:
             var_obj = struct_proto_format.variables.add()
             self.serializeVariable(var_obj, struct.getVariableByIndex(num_var))
 
+
+    def enumAccessToProtobuf(self, access:Access):
+        #print("serialize ACCESS " + str(access))
+        if (access == Access.PUBLIC):
+            #print("serialize ACCESS " + str(code_data_pb2.PUBLIC))
+            return code_data_pb2.PUBLIC
+        elif (access == Access.PRIVATE):
+            #print("serialize ACCESS " + str(code_data_pb2.PRIVATE))
+            return code_data_pb2.PRIVATE
+        elif (access == Access.PROTECTED):
+            #print("serialize ACCESS " + str(code_data_pb2.PROTECTED))
+            return code_data_pb2.PROTECTED
+        return None
+
     def serializeVariable(self, var_proto_format, var:DataFromVariable):
-        var_proto_format.access = var.getAccess()
+        var_proto_format.access = self.enumAccessToProtobuf(var.getAccess())
         self.serializeInputParams(var_proto_format.variable, var.getVariable())
     
 
     def serializeMethod(self, method_proto_format, method:DataFromMethod):
-        method_proto_format.access = method.getAccess()
-        # func_proto_format = method_proto_format.function.add()
-        self.serializeFunc(method_proto_format.function, method.getFunction())
+        #method_proto_format.access = self.enumAccessToProtobuf(method.getAccess())
 
+        if (method.getAccess() == Access.PUBLIC):
+            #print("serialize ACCESS " + str(code_data_pb2.PUBLIC))
+            method_proto_format.access = code_data_pb2.PUBLIC
+        elif (method.getAccess() == Access.PRIVATE):
+            #print("serialize ACCESS " + str(code_data_pb2.PRIVATE))
+            method_proto_format.access = code_data_pb2.PRIVATE
+        elif (method.getAccess() == Access.PROTECTED):
+            #print("serialize ACCESS " + str(code_data_pb2.PROTECTED))
+            method_proto_format.access = code_data_pb2.PROTECTED
         
+        print("serialize ACCESS " + str(method_proto_format.access))
+        self.serializeFunc(method_proto_format.function, method.getFunction())        
 
     def serializeFunc(self, func_proto_format, func:DataFromFunc):
         func_proto_format.namespace.extend(func.getNamespaces())

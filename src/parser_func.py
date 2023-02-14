@@ -1,6 +1,6 @@
 import clang.cindex
 import typing
-from classes_for_tree import DataFromFunc, DataFromStruct, DataFromMethod, DataFromParam
+from classes_for_tree import *
 from data import Data
 import string
 
@@ -35,8 +35,9 @@ class Parser:
         data_func = self.__getFunction(node)
         self.__data.addDataFromFunc(data_func)
 
-    def __getStruct(self, node) -> None:
+    def __getStruct(self, node, defult_access) -> None:
         struct:DataFromStruct = DataFromStruct()
+        struct.setAccess(defult_access)
         struct.setName(node.spelling)
         self.__getNamespaces(node.lexical_parent, struct)
         self.__findMethod(node, struct)
@@ -44,24 +45,37 @@ class Parser:
         struct.printForTests()
         self.__data.addDataFromStruct(struct)
 
+    def __findAccess(self, node) -> Access:
+        #print("ACCESS " + str(node.access_specifier))
+        if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+            return Access.PUBLIC
+        elif node.access_specifier == clang.cindex.AccessSpecifier.PROTECTED:
+            return Access.PROTECTED
+        elif node.access_specifier == clang.cindex.AccessSpecifier.PRIVATE:
+            return Access.PRIVATE
+
     def __findMethod(self, node, struct:DataFromStruct) -> None: 
+        curr_access = struct.getAccess()
         children_node = node.get_children()
         for child in children_node:
-            # if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
-            #     print("ACCESS" + str(child.spelling))
+            if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
+                curr_access = self.__findAccess(child)
+
             if child.kind == clang.cindex.CursorKind.CXX_METHOD:
-                #пока без доступа
-                struct.setMethod("", self.__getFunction(child))
+                struct.setMethod(curr_access, self.__getFunction(child))
         
     def __findVariable(self, node, struct:DataFromStruct) -> None:
+        curr_access = struct.getAccess()
         children_node = node.get_children()
         for child in children_node:
+            if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
+                curr_access = self.__findAccess(child)
             if child.kind == clang.cindex.CursorKind.FIELD_DECL:
                 #пока без доступа
                 variable = DataFromParam()
                 variable.setName(child.spelling)
                 variable.setType(child.type.spelling)
-                struct.setVariable("", variable)
+                struct.setVariable(curr_access, variable)
         pass
 
     def __findInputParam(self, node, result_func:DataFromFunc) -> None:
@@ -81,9 +95,11 @@ class Parser:
                 self.__findNodeFunction(child)
     
     def __findNodeStruct(self, node) -> None:
-        if (node.kind == clang.cindex.CursorKind.STRUCT_DECL 
-                or node.kind == clang.cindex.CursorKind.CLASS_DECL):
-            self.__getStruct(node)
+        if (node.kind == clang.cindex.CursorKind.STRUCT_DECL):
+            self.__getStruct(node, Access.PUBLIC)
+            return
+        if (node.kind == clang.cindex.CursorKind.CLASS_DECL):
+            self.__getStruct(node, Access.PRIVATE)
             return
 
         if node.kind == clang.cindex.CursorKind.NAMESPACE:

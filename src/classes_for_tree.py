@@ -1,5 +1,14 @@
 # import code_data_pb2
 import string
+from enum import Enum 
+
+
+class Access(Enum):
+    PUBLIC = 1
+    PROTECTED = 2
+    PRIVATE = 3
+    NONE = 4
+
 
 class DataFromParam:
     def __init__(self) -> None:
@@ -23,11 +32,11 @@ class DataFromParam:
         print(self.__type)
 
 class DataFromVariable:
-    def __init__(self, access: string, param : DataFromParam) -> None:
-        self.__access :string = access
+    def __init__(self, access: Access, param : DataFromParam) -> None:
+        self.__access :Access = access
         self.__variable :DataFromParam = param
 
-    def getAccess(self) -> string:
+    def getAccess(self) -> Access:
         return self.__access
 
     def getVariable(self) -> DataFromParam:
@@ -86,11 +95,11 @@ class DataFromFunc:
 
 
 class DataFromMethod:
-    def __init__(self, access: string, func : DataFromFunc) -> None:
-        self.__access :string = access
+    def __init__(self, access: Access, func : DataFromFunc) -> None:
+        self.__access :Access = access
         self.__function :DataFromFunc = func
 
-    def getAccess(self) -> string:
+    def getAccess(self) -> Access:
         return self.__access
 
     def getFunction(self) -> DataFromFunc:
@@ -105,8 +114,15 @@ class DataFromStruct:
     def __init__(self) -> None:
         self.__namespaces :list = []
         self.__name :string
+        self.__default_access :Access = Access.NONE
         self.__list_methods :list[DataFromMethod] = []
         self.__list_variable :list[DataFromVariable] = []
+
+    def setAccess(self,access:Access) -> None:
+        self.__default_access = access
+
+    def getAccess(self) -> Access:
+        return self.__default_access
     
     def setNamespace(self, ns:string) -> None:
         self.__namespaces.append(ns)
