@@ -11,9 +11,9 @@ class Access(Enum):
 
 
 class DataFromParam:
-    def __init__(self) -> None:
-        self.__name :string
-        self.__type :string
+    def __init__(self, name ="", type="") -> None:
+        self.set_name(name)
+        self.set_type(type)
 
     def set_name(self, name:string) -> None:
         self.__name = name
@@ -27,9 +27,12 @@ class DataFromParam:
     def get_type(self) -> string:
         return self.__type
 
+    name = property(get_name, set_name)
+    type = property(get_type, set_type)
+
     def print_for_tests(self)-> None:
-        print(self.__name)
-        print(self.__type)
+        print(self.name)
+        print(self.type)
 
 class DataFromVariable:
     def __init__(self, access: Access, param : DataFromParam) -> None:
@@ -67,8 +70,8 @@ class DataFromFunc:
 
     def set_inp_param(self, inp_type:string, inp_name:string) -> None:
         input_params :DataFromParam = DataFromParam()
-        input_params.set_type(inp_type)
-        input_params.set_name(inp_name)
+        input_params.type = inp_type
+        input_params.name = inp_name
         self.__list_input_params.append(input_params)
 
     def get_namespaces(self) -> list:

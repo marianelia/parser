@@ -8,10 +8,10 @@ class Data:
         self.__list_data_struct :list[DataFromStruct] = []
         #...
 
-    def add_data_from_func(self, data:DataFromFunc):
+    def add_data_from_func(self, data:DataFromFunc) -> None:
         self.__list_data_func.append(data)
     
-    def add_data_from_struct(self, data:DataFromStruct):
+    def add_data_from_struct(self, data:DataFromStruct) -> None:
         self.__list_data_struct.append(data)
 
     def serialize_data(self):
