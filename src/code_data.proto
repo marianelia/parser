@@ -18,7 +18,7 @@ message Struct
 
 message Method
 {
-    string access = 1;
+    Access access = 1;
     Function function = 2;
 }
 
@@ -32,7 +32,7 @@ message Function
 
 message Variable
 {
-    string access = 1;
+    Access access = 1;
     Param variable = 2;
 }
 
@@ -40,4 +40,11 @@ message Param
 {
     string name = 1;
     string type = 2;
+}
+
+enum Access {
+    NONE = 0;
+    PUBLIC = 1;
+    PRIVATE = 2;
+    PROTECTED = 3;
 }
