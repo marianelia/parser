@@ -42,7 +42,7 @@ class Parser:
         self.__get_namespaces(node.lexical_parent, struct)
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
-        struct.print_for_tests()
+        #struct.print_for_tests()
         self.__data.add_data_from_struct(struct)
 
     def __find_access(self, node) -> Access:

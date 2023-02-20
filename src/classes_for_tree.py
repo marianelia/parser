@@ -40,6 +40,7 @@ class DataFromVariable:
         self.__variable :DataFromParam = param
 
     def get_access(self) -> Access:
+        #print(self.__access)
         return self.__access
 
     def get_variable(self) -> DataFromParam:

@@ -37,6 +37,7 @@ class Data:
         file.close()
 
     def serialize_struct(self, struct_proto_format, struct:DataFromStruct):
+        #struct.print_for_tests()
         struct_proto_format.namespace.extend(struct.get_namespaces())
         struct_proto_format.name = struct.get_name()
 
@@ -53,10 +54,10 @@ class Data:
         if (access == Access.PUBLIC):
             return code_data_pb2.PUBLIC
 
-        elif (access == Access.PRIVATE):
+        if (access == Access.PRIVATE):
             return code_data_pb2.PRIVATE
 
-        elif (access == Access.PROTECTED):
+        if (access == Access.PROTECTED):
             return code_data_pb2.PROTECTED
         return None
 

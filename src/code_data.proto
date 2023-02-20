@@ -43,7 +43,8 @@ message Param
 }
 
 enum Access {
-    PUBLIC = 0;
-    PRIVATE = 1;
+    NONE = 0;
+    PUBLIC = 1;
+    PRIVATE = 2;
     PROTECTED = 3;
 }

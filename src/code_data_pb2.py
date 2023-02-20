@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0f\x63ode_data.proto\"Y\n\x04\x46ile\x12\x11\n\tfile_name\x18\x01 \x01(\t\x12\x1c\n\x0bstruct_list\x18\x02 \x03(\x0b\x32\x07.Struct\x12 \n\rfunction_list\x18\x03 \x03(\x0b\x32\t.Function\"a\n\x06Struct\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x07methods\x18\x03 \x03(\x0b\x32\x07.Method\x12\x1c\n\tvariables\x18\x04 \x03(\x0b\x32\t.Variable\">\n\x06Method\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x1b\n\x08\x66unction\x18\x02 \x01(\x0b\x32\t.Function\"_\n\x08\x46unction\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0coutput_param\x18\x03 \x01(\t\x12\x1c\n\x0cinput_params\x18\x04 \x03(\x0b\x32\x06.Param\"=\n\x08Variable\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x18\n\x08variable\x18\x02 \x01(\x0b\x32\x06.Param\"#\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t*0\n\x06\x41\x63\x63\x65ss\x12\n\n\x06PUBLIC\x10\x00\x12\x0b\n\x07PRIVATE\x10\x01\x12\r\n\tPROTECTED\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x0f\x63ode_data.proto\"Y\n\x04\x46ile\x12\x11\n\tfile_name\x18\x01 \x01(\t\x12\x1c\n\x0bstruct_list\x18\x02 \x03(\x0b\x32\x07.Struct\x12 \n\rfunction_list\x18\x03 \x03(\x0b\x32\t.Function\"a\n\x06Struct\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x07methods\x18\x03 \x03(\x0b\x32\x07.Method\x12\x1c\n\tvariables\x18\x04 \x03(\x0b\x32\t.Variable\">\n\x06Method\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x1b\n\x08\x66unction\x18\x02 \x01(\x0b\x32\t.Function\"_\n\x08\x46unction\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0coutput_param\x18\x03 \x01(\t\x12\x1c\n\x0cinput_params\x18\x04 \x03(\x0b\x32\x06.Param\"=\n\x08Variable\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x18\n\x08variable\x18\x02 \x01(\x0b\x32\x06.Param\"#\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t*:\n\x06\x41\x63\x63\x65ss\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PUBLIC\x10\x01\x12\x0b\n\x07PRIVATE\x10\x02\x12\r\n\tPROTECTED\x10\x03\x62\x06proto3')
 )
 
 _ACCESS = _descriptor.EnumDescriptor(
@@ -30,28 +30,33 @@ _ACCESS = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='PUBLIC', index=0, number=0,
+      name='NONE', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PRIVATE', index=1, number=1,
+      name='PUBLIC', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PROTECTED', index=2, number=3,
+      name='PRIVATE', index=2, number=2,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PROTECTED', index=3, number=3,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=470,
-  serialized_end=518,
+  serialized_end=528,
 )
 _sym_db.RegisterEnumDescriptor(_ACCESS)
 
 Access = enum_type_wrapper.EnumTypeWrapper(_ACCESS)
-PUBLIC = 0
-PRIVATE = 1
+NONE = 0
+PUBLIC = 1
+PRIVATE = 2
 PROTECTED = 3
 
 
