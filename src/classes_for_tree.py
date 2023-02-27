@@ -1,5 +1,4 @@
 # import code_data_pb2
-import string
 from enum import Enum 
 
 
@@ -15,16 +14,16 @@ class DataFromParam:
         self.set_name(name)
         self.set_type(type)
 
-    def set_name(self, name:string) -> None:
+    def set_name(self, name:str) -> None:
         self.__name = name
     
-    def set_type(self, type:string) -> None:
+    def set_type(self, type:str) -> None:
         self.__type = type
 
-    def get_name(self) -> string:
+    def get_name(self) -> str:
         return self.__name
     
-    def get_type(self) -> string:
+    def get_type(self) -> str:
         return self.__type
 
     name = property(get_name, set_name)
@@ -40,7 +39,6 @@ class DataFromVariable:
         self.__variable :DataFromParam = param
 
     def get_access(self) -> Access:
-        #print(self.__access)
         return self.__access
 
     def get_variable(self) -> DataFromParam:
@@ -53,23 +51,23 @@ class DataFromVariable:
 class DataFromFunc:
     def __init__(self) -> None:
         self.__namespaces :list = []
-        self.__name :string
-        self.__output_param :string
+        self.__name :str
+        self.__output_param :str
         self.__list_input_params :list[DataFromParam] = []
 
-    def set_namespace(self, ns:string) -> None:
+    def set_namespace(self, ns:str) -> None:
         self.__namespaces.append(ns)
 
-    def set_name(self, name:string) -> None:
+    def set_name(self, name:str) -> None:
         self.__name = name
 
-    def set_out_param(self, out_param:string) -> None:
+    def set_out_param(self, out_param:str) -> None:
         self.__output_param = out_param
 
-    def set_out_param_from_decl(self, out_param:string) -> None:
+    def set_out_param_from_decl(self, out_param:str) -> None:
         self.__output_param = out_param.partition(' (')[0]
 
-    def set_inp_param(self, inp_type:string, inp_name:string) -> None:
+    def set_inp_param(self, inp_type:str, inp_name:str) -> None:
         input_params :DataFromParam = DataFromParam()
         input_params.type = inp_type
         input_params.name = inp_name
@@ -78,10 +76,10 @@ class DataFromFunc:
     def get_namespaces(self) -> list:
         return self.__namespaces
 
-    def get_name(self) -> string:
+    def get_name(self) -> str:
         return self.__name
 
-    def get_out_param(self) -> string:
+    def get_out_param(self) -> str:
         return self.__output_param
 
     def get_inp_params(self) -> list:
@@ -99,15 +97,24 @@ class DataFromFunc:
 
 
 class DataFromMethod:
-    def __init__(self, access: Access, func : DataFromFunc) -> None:
-        self.__access :Access = access
-        self.__function :DataFromFunc = func
+    def __init__(self, access, func) -> None:
+        self.set_access(access)
+        self.set_function(func)
+
+    def set_access(self, access:Access) -> None:
+        self.__access = access
+
+    def set_function(self, func:DataFromFunc) -> None:
+        self.__function = func
 
     def get_access(self) -> Access:
         return self.__access
 
     def get_function(self) -> DataFromFunc:
         return self.__function
+
+    access = property(get_access, set_access)
+    function = property(get_function, set_function)
         
     def print_for_tests(self)-> None:
         print(self.__access)
@@ -117,7 +124,7 @@ class DataFromMethod:
 class DataFromStruct:
     def __init__(self) -> None:
         self.__namespaces :list = []
-        self.__name :string
+        self.__name :str
         self.__default_access :Access = Access.NONE
         self.__list_methods :list[DataFromMethod] = []
         self.__list_variable :list[DataFromVariable] = []
@@ -128,19 +135,19 @@ class DataFromStruct:
     def get_access(self) -> Access:
         return self.__default_access
     
-    def set_namespace(self, ns:string) -> None:
+    def set_namespace(self, ns:str) -> None:
         self.__namespaces.append(ns)
 
-    def set_name(self, name:string) -> None:
+    def set_name(self, name:str) -> None:
         self.__name = name
 
-    def get_name(self) -> string:
+    def get_name(self) -> str:
         return self.__name
     
     def get_namespaces(self) -> list:
         return self.__namespaces
 
-    def set_method(self, access:string, func:DataFromFunc) -> None:
+    def set_method(self, access:str, func:DataFromFunc) -> None:
         method :DataFromMethod = DataFromMethod(access, func)
         self.__list_methods.append(method)
 
@@ -151,7 +158,7 @@ class DataFromStruct:
         return self.__list_methods[index]
 
 
-    def set_variable(self, access:string, var:DataFromParam) -> None:
+    def set_variable(self, access:str, var:DataFromParam) -> None:
         variable :DataFromVariable = DataFromVariable(access, var)
         self.__list_variable.append(variable)
 

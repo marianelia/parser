@@ -1,6 +1,5 @@
 from classes_for_tree import *
 import code_data_pb2
-import string
 
 class Data:
     def __init__(self) -> None:
@@ -31,7 +30,7 @@ class Data:
         file_obj.ParseFromString(serialize_to_string)
         print(file_obj)
 
-    def serialize_data_to_file(self, file_name:string, data:string):
+    def serialize_data_to_file(self, file_name:str, data:str):
         file = open(file_name, 'wb')
         file.write(data)
         file.close()

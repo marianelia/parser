@@ -2,7 +2,7 @@ import sys
 import pathlib
 sys.path.append(str(pathlib.Path(sys.path[0]).resolve().parent / "src"))
 
-from parser_func import Parser
+from parser_tree import Parser
 
 root = str(pathlib.Path(sys.path[0]).resolve())
 fn1 = root + '/test1.cpp'
