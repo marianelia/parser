@@ -14,7 +14,7 @@ class Parser:
 
     #переделать после переписывания архитектуры
     def serialize_data_to_binary_file(self, path_to_file:str):
-        self.__data.serialize_data()
+        self.__data.serialize_data(path_to_file)
 
     def __get_namespaces(self, node, el_of_tree):
         while node.kind == clang.cindex.CursorKind.NAMESPACE:

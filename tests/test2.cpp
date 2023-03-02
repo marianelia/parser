@@ -9,8 +9,11 @@ namespace ns1
             long long t;
 
     };
+namespace ns2
+{
+    int t(long long arg1, long long arg2);
 }
-
+}
 
 struct s
 {

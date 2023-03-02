@@ -13,7 +13,7 @@ class Data:
     def add_data_from_struct(self, data:DataFromStruct) -> None:
         self.__list_data_struct.append(data)
 
-    def serialize_data(self):
+    def serialize_data(self, path_to_output_file:str):
         file_obj = code_data_pb2.File()
         #file.file_name = ..  
         for num_data_func in range(len(self.__list_data_func)):
@@ -25,15 +25,15 @@ class Data:
             self.serialize_struct(struct_obj, self.__list_data_struct[num_data_struct])
 
         serialize_to_string = file_obj.SerializeToString()
-        self.serialize_data_to_file("test", serialize_to_string)
+        self.serialize_data_to_file(path_to_output_file + "test", serialize_to_string)
         print(serialize_to_string)
         file_obj.ParseFromString(serialize_to_string)
         print(file_obj)
 
     def serialize_data_to_file(self, file_name:str, data:str):
-        file = open(file_name, 'wb')
-        file.write(data)
-        file.close()
+        with open(file_name, mode="wb") as file:
+            file.write(data)
+        #file.closed
 
     def serialize_struct(self, struct_proto_format, struct:DataFromStruct):
         #struct.print_for_tests()
