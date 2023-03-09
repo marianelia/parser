@@ -61,8 +61,8 @@ class Data:
         return None
 
     def serialize_variable(self, var_proto_format, var:DataFromVariable):
-        var_proto_format.access = self.enum_access_to_protobuf(var.get_access())
-        self.serialize_input_params(var_proto_format.variable, var.get_variable())
+        var_proto_format.access = self.enum_access_to_protobuf(var.access)
+        self.serialize_input_params(var_proto_format.variable, var.variable)
     
     def serialize_method(self, method_proto_format, method:DataFromMethod):
         method_proto_format.access = self.enum_access_to_protobuf(method.get_access())

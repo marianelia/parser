@@ -7,6 +7,10 @@ class Parser:
     def __init__(self) -> None:
         self.__data = Data()
 
+    @property
+    def data(self):
+        return self.__data
+
     def parser_tree_from_file(self, file_name:str, args:list) -> None:
         index = clang.cindex.Index.create()
         translation_unit = index.parse(file_name, args=args)

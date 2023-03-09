@@ -35,13 +35,15 @@ class DataFromParam:
 
 class DataFromVariable:
     def __init__(self, access: Access, param : DataFromParam) -> None:
-        self.__access :Access = access
-        self.__variable :DataFromParam = param
+        self.__access = access
+        self.__variable = param
 
-    def get_access(self) -> Access:
+    @property
+    def access(self) -> Access:
         return self.__access
 
-    def get_variable(self) -> DataFromParam:
+    @property
+    def variable(self) -> DataFromParam:
         return self.__variable
 
     def print_for_tests(self)-> None:
