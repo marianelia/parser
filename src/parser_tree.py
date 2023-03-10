@@ -2,6 +2,7 @@ import clang.cindex
 import typing
 from classes_for_tree import *
 from data import Data
+import copy
 
 class Parser:
     def __init__(self) -> None:
@@ -21,6 +22,7 @@ class Parser:
         self.__data.serialize_data(path_to_file)
 
     def __get_namespaces(self, node, el_of_tree):
+        del el_of_tree.namespaces
         while node.kind == clang.cindex.CursorKind.NAMESPACE:
             el_of_tree.set_namespace(node.spelling)
             # print(node.spelling)
@@ -38,17 +40,20 @@ class Parser:
     def __get_info_from_function_node(self, node) -> None:
         data_func = self.__get_function(node)
         self.__data.add_data_from_func(data_func)
-        del data_func.namespaces
+
+        # del data_func.namespaces
+        del data_func
 
     def __get_struct(self, node, defult_access) -> None:
         struct:DataFromStruct = DataFromStruct()
         struct.set_access(defult_access)
-        struct.set_name(node.spelling)
+        struct.name = node.spelling 
         self.__get_namespaces(node.lexical_parent, struct)
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
-        #struct.print_for_tests()
+        # struct.print_for_tests()
         self.__data.add_data_from_struct(struct)
+        del struct
 
     def __find_access(self, node) -> Access:
         if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:

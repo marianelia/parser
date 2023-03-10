@@ -26,7 +26,7 @@ class Data:
 
         serialize_to_string = file_obj.SerializeToString()
         self.serialize_data_to_file(path_to_output_file + "test", serialize_to_string)
-        print(serialize_to_string)
+        # print(serialize_to_string)
         file_obj.ParseFromString(serialize_to_string)
         print(file_obj)
 
@@ -37,8 +37,8 @@ class Data:
 
     def serialize_struct(self, struct_proto_format, struct:DataFromStruct):
         #struct.print_for_tests()
-        struct_proto_format.namespace.extend(struct.get_namespaces())
-        struct_proto_format.name = struct.get_name()
+        struct_proto_format.namespace.extend(struct.namespaces)
+        struct_proto_format.name = struct.name
 
         for num_method in range(len(struct.get_methods())):
             method_obj = struct_proto_format.methods.add()

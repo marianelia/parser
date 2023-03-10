@@ -14,6 +14,10 @@ class DataFromParam:
         self.set_name(name)
         self.set_type(type)
 
+    def __del__(self):
+        del self.__name
+        del self.__type
+
     def set_name(self, name:str) -> None:
         self.__name = name
     
@@ -38,6 +42,10 @@ class DataFromVariable:
         self.__access = access
         self.__variable = param
 
+    def __del__(self):
+        del self.__access 
+        del self.__variable
+
     @property
     def access(self) -> Access:
         return self.__access
@@ -57,6 +65,12 @@ class DataFromFunc(object):
         self.__output_param :str
         self.__list_input_params :list[DataFromParam] = []
 
+    def __del__(self):
+        del self.__namespaces
+        del self.__name
+        del self.__output_param 
+        del self.__list_input_params
+    
     @property
     def namespaces(self) -> list:
         return self.__namespaces
@@ -114,6 +128,10 @@ class DataFromMethod:
     def __init__(self, access, func) -> None:
         self.set_access(access)
         self.set_function(func)
+        
+    def __del__(self):
+        del self.__access
+        del self.__function
 
     def set_access(self, access:Access) -> None:
         self.__access = access
@@ -136,12 +154,19 @@ class DataFromMethod:
 
 
 class DataFromStruct:
-    def __init__(self) -> None:
-        self.__namespaces :list = []
-        self.__name :str
+    def __init__(self, namespaces = [], name = "") -> None:
+        self.__namespaces  = namespaces
+        self.__name = name
         self.__default_access :Access = Access.NONE
         self.__list_methods :list[DataFromMethod] = []
         self.__list_variable :list[DataFromVariable] = []
+
+    def __del__(self):
+        del self.__namespaces
+        del self.__name
+        del self.__default_access
+        del self.__list_methods
+        del self.__list_variable
 
     def set_access(self,access:Access) -> None:
         self.__default_access = access
@@ -149,17 +174,24 @@ class DataFromStruct:
     def get_access(self) -> Access:
         return self.__default_access
     
+    @property
+    def namespaces(self) -> list:
+        return self.__namespaces
+
+    @namespaces.deleter
+    def namespaces(self):
+        self.__namespaces = []
+
     def set_namespace(self, ns:str) -> None:
         self.__namespaces.append(ns)
 
-    def set_name(self, name:str) -> None:
-        self.__name = name
-
-    def get_name(self) -> str:
+    @property
+    def name(self) -> str:
         return self.__name
     
-    def get_namespaces(self) -> list:
-        return self.__namespaces
+    @name.setter
+    def name(self, name:str) -> None:
+        self.__name = name
 
     def set_method(self, access:str, func:DataFromFunc) -> None:
         method :DataFromMethod = DataFromMethod(access, func)
