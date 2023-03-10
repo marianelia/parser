@@ -50,17 +50,35 @@ class DataFromVariable:
         print(self.__access)
         self.__variable.print_for_tests()
 
-class DataFromFunc:
-    def __init__(self) -> None:
-        self.__namespaces :list = []
-        self.__name :str
+class DataFromFunc(object):
+    def __init__(self,namespaces = [], name = "") -> None:
+        self.__namespaces = namespaces
+        self.__name = name
         self.__output_param :str
         self.__list_input_params :list[DataFromParam] = []
+
+    @property
+    def namespaces(self) -> list:
+        return self.__namespaces
+    
+    @namespaces.deleter
+    def namespaces(self):
+        self.__namespaces = []
+
+    @namespaces.setter
+    def namespaces(self, ns:str) -> None:
+        self.__namespaces.append(ns)
+
 
     def set_namespace(self, ns:str) -> None:
         self.__namespaces.append(ns)
 
-    def set_name(self, name:str) -> None:
+    @property
+    def name(self) -> str:
+        return self.__name
+
+    @name.setter
+    def name(self, name:str) -> None:
         self.__name = name
 
     def set_out_param(self, out_param:str) -> None:
@@ -74,12 +92,6 @@ class DataFromFunc:
         input_params.type = inp_type
         input_params.name = inp_name
         self.__list_input_params.append(input_params)
-
-    def get_namespaces(self) -> list:
-        return self.__namespaces
-
-    def get_name(self) -> str:
-        return self.__name
 
     def get_out_param(self) -> str:
         return self.__output_param

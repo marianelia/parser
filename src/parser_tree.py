@@ -23,11 +23,12 @@ class Parser:
     def __get_namespaces(self, node, el_of_tree):
         while node.kind == clang.cindex.CursorKind.NAMESPACE:
             el_of_tree.set_namespace(node.spelling)
+            # print(node.spelling)
             node = node.lexical_parent
 
     def __get_function(self, node) -> DataFromFunc:
         data_func = DataFromFunc()
-        data_func.set_name(node.spelling)
+        data_func.name = node.spelling
         data_func.set_out_param_from_decl(node.type.spelling)
         self.__get_namespaces(node.lexical_parent, data_func)
         self.__find_input_param(node, data_func)
@@ -37,6 +38,7 @@ class Parser:
     def __get_info_from_function_node(self, node) -> None:
         data_func = self.__get_function(node)
         self.__data.add_data_from_func(data_func)
+        del data_func.namespaces
 
     def __get_struct(self, node, defult_access) -> None:
         struct:DataFromStruct = DataFromStruct()
@@ -64,7 +66,9 @@ class Parser:
                 curr_access = self.__find_access(child)
 
             if child.kind == clang.cindex.CursorKind.CXX_METHOD:
-                struct.set_method(curr_access, self.__get_function(child))
+                func = self.__get_function(child)
+                struct.set_method(curr_access, func)
+                del func.namespaces
         
     def __find_variable(self, node, struct:DataFromStruct) -> None:
         curr_access = struct.get_access()

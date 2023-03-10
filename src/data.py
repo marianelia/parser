@@ -69,8 +69,8 @@ class Data:
         self.serialize_func(method_proto_format.function, method.get_function())        
 
     def serialize_func(self, func_proto_format, func:DataFromFunc):
-        func_proto_format.namespace.extend(func.get_namespaces())
-        func_proto_format.name = func.get_name()
+        func_proto_format.namespace.extend(func.namespaces)
+        func_proto_format.name = func.name
         func_proto_format.output_param = func.get_out_param()
         for num_inp_param in range(len(func.get_inp_params())):
             inp_param_obj = func_proto_format.input_params.add()
