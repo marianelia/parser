@@ -117,10 +117,11 @@ class DataFromFunc(object):
         input_params.name = inp_name
         self.__list_input_params.append(input_params)
 
+    
     def get_inp_params(self) -> list:
         return self.__list_input_params
 
-    def get_inp_param(self, index:int) -> DataFromParam:
+    def get_inp_param_by_idx(self, index:int) -> DataFromParam:
         return self.__list_input_params[index]
 
     def print_for_tests(self) -> None:

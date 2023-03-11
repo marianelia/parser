@@ -74,7 +74,7 @@ class Data:
         func_proto_format.output_param = func.output_param
         for num_inp_param in range(len(func.get_inp_params())):
             inp_param_obj = func_proto_format.input_params.add()
-            self.serialize_input_params(inp_param_obj, func.get_inp_param(num_inp_param))
+            self.serialize_input_params(inp_param_obj, func.get_inp_param_by_idx(num_inp_param))
 
     def serialize_input_params(self, param_proto_format, inp_param:DataFromParam):
         param_proto_format.name = inp_param.get_name()

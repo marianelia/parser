@@ -21,7 +21,7 @@ class Parser:
     def serialize_data_to_binary_file(self, path_to_file:str):
         self.__data.serialize_data(path_to_file)
 
-    def __get_namespaces(self, node, el_of_tree):
+    def __find_namespaces(self, node, el_of_tree):
         del el_of_tree.namespaces
         while node.kind == clang.cindex.CursorKind.NAMESPACE:
             el_of_tree.set_namespace(node.spelling)
@@ -32,7 +32,7 @@ class Parser:
         data_func = DataFromFunc()
         data_func.name = node.spelling
         data_func.set_out_param_from_decl(node.type.spelling)
-        self.__get_namespaces(node.lexical_parent, data_func)
+        self.__find_namespaces(node.lexical_parent, data_func)
         self.__find_input_param(node, data_func)
         #data_func.print_for_tests()
         return data_func
@@ -48,7 +48,7 @@ class Parser:
         struct:DataFromStruct = DataFromStruct()
         struct.access = defult_access
         struct.name = node.spelling 
-        self.__get_namespaces(node.lexical_parent, struct)
+        self.__find_namespaces(node.lexical_parent, struct)
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
         # struct.print_for_tests()
