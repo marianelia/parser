@@ -49,6 +49,10 @@ class DataFromVariable:
     @property
     def access(self) -> Access:
         return self.__access
+    
+    @access.setter
+    def access(self) -> Access:
+        return self.__access
 
     @property
     def variable(self) -> DataFromParam:
@@ -59,10 +63,11 @@ class DataFromVariable:
         self.__variable.print_for_tests()
 
 class DataFromFunc(object):
-    def __init__(self,namespaces = [], name = "") -> None:
+    def __init__(self,namespaces = [], name = "", 
+                 output_param = "") -> None:
         self.__namespaces = namespaces
         self.__name = name
-        self.__output_param :str
+        self.__output_param = output_param
         self.__list_input_params :list[DataFromParam] = []
 
     def __del__(self):
@@ -95,7 +100,12 @@ class DataFromFunc(object):
     def name(self, name:str) -> None:
         self.__name = name
 
-    def set_out_param(self, out_param:str) -> None:
+    @property
+    def output_param(self) -> str:
+        return self.__output_param
+
+    @output_param.setter
+    def output_param(self, out_param:str) -> None:
         self.__output_param = out_param
 
     def set_out_param_from_decl(self, out_param:str) -> None:
@@ -106,9 +116,6 @@ class DataFromFunc(object):
         input_params.type = inp_type
         input_params.name = inp_name
         self.__list_input_params.append(input_params)
-
-    def get_out_param(self) -> str:
-        return self.__output_param
 
     def get_inp_params(self) -> list:
         return self.__list_input_params
@@ -154,10 +161,11 @@ class DataFromMethod:
 
 
 class DataFromStruct:
-    def __init__(self, namespaces = [], name = "") -> None:
+    def __init__(self, namespaces = [], name = "", 
+                 default_access = Access.NONE) -> None:
         self.__namespaces  = namespaces
         self.__name = name
-        self.__default_access :Access = Access.NONE
+        self.__default_access = default_access
         self.__list_methods :list[DataFromMethod] = []
         self.__list_variable :list[DataFromVariable] = []
 
@@ -168,11 +176,13 @@ class DataFromStruct:
         del self.__list_methods
         del self.__list_variable
 
-    def set_access(self,access:Access) -> None:
-        self.__default_access = access
-
-    def get_access(self) -> Access:
+    @property
+    def access(self) -> Access:
         return self.__default_access
+    
+    @access.setter
+    def access(self,access:Access) -> None:
+        self.__default_access = access
     
     @property
     def namespaces(self) -> list:

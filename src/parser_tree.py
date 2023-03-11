@@ -46,14 +46,14 @@ class Parser:
 
     def __get_struct(self, node, defult_access) -> None:
         struct:DataFromStruct = DataFromStruct()
-        struct.set_access(defult_access)
+        struct.access = defult_access
         struct.name = node.spelling 
         self.__get_namespaces(node.lexical_parent, struct)
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
         # struct.print_for_tests()
         self.__data.add_data_from_struct(struct)
-        del struct
+        #del struct
 
     def __find_access(self, node) -> Access:
         if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
@@ -64,7 +64,7 @@ class Parser:
             return Access.PRIVATE
 
     def __find_method(self, node, struct:DataFromStruct) -> None: 
-        curr_access = struct.get_access()
+        curr_access = struct.access
         children_node = node.get_children()
         for child in children_node:
             if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
@@ -76,7 +76,7 @@ class Parser:
                 del func.namespaces
         
     def __find_variable(self, node, struct:DataFromStruct) -> None:
-        curr_access = struct.get_access()
+        curr_access = struct.access
         children_node = node.get_children()
         for child in children_node:
             if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
