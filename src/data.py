@@ -40,11 +40,11 @@ class Data:
         struct_proto_format.namespace.extend(struct.namespaces)
         struct_proto_format.name = struct.name
 
-        for num_method in range(len(struct.get_methods())):
+        for num_method in range(len(struct.methods)):
             method_obj = struct_proto_format.methods.add()
             self.serialize_method(method_obj, struct.get_method_by_index(num_method))
 
-        for num_var in range(len(struct.get_variable())):
+        for num_var in range(len(struct.variables)):
             var_obj = struct_proto_format.variables.add()
             self.serialize_variable(var_obj, struct.get_variable_by_index(num_var))
 

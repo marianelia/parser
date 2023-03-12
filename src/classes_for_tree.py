@@ -69,7 +69,6 @@ class DataFromFunc(object):
         self.__name = name
         self.__output_param = output_param
         self.__list_input_params :list[DataFromParam] = list_input_params
-        #self.__list_input_params :list[DataFromParam] = []
 
     # def __del__(self):
     #     del self.__namespaces
@@ -209,22 +208,23 @@ class DataFromStruct:
     def name(self, name:str) -> None:
         self.__name = name
 
+    @property
+    def methods(self) -> list:
+        return self.__list_methods
+
     def set_method(self, access:str, func:DataFromFunc) -> None:
         method :DataFromMethod = DataFromMethod(access, func)
         self.__list_methods.append(method)
 
-    def get_methods(self) -> list:
-        return self.__list_methods
-
     def get_method_by_index(self, index:int) -> DataFromMethod:
         return self.__list_methods[index]
-
 
     def set_variable(self, access:str, var:DataFromParam) -> None:
         variable :DataFromVariable = DataFromVariable(access, var)
         self.__list_variable.append(variable)
 
-    def get_variable(self) -> list:
+    @property
+    def variables(self) -> list:
         return self.__list_variable
 
     def get_variable_by_index(self, index:int) -> DataFromVariable:
