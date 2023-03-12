@@ -72,7 +72,7 @@ class Data:
         func_proto_format.namespace.extend(func.namespaces)
         func_proto_format.name = func.name
         func_proto_format.output_param = func.output_param
-        for num_inp_param in range(len(func.get_inp_params())):
+        for num_inp_param in range(len(func.inp_params)):
             inp_param_obj = func_proto_format.input_params.add()
             self.serialize_input_params(inp_param_obj, func.get_inp_param_by_idx(num_inp_param))
 

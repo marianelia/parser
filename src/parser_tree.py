@@ -87,9 +87,11 @@ class Parser:
         
 
     def __find_input_param(self, node, result_func:DataFromFunc) -> None:
+        del result_func.inp_params
         input_params = node.get_children()
         for param in input_params:
-            result_func.set_inp_param(param.type.spelling, param.spelling) 
+            #result_func.set_inp_param(param.type.spelling, param.spelling) 
+            result_func.set_inp_params(param.type.spelling, param.spelling )
             # возможно нужен будет displayname
 
     def __find_node_function(self, node) -> None:

@@ -64,17 +64,18 @@ class DataFromVariable:
 
 class DataFromFunc(object):
     def __init__(self,namespaces = [], name = "", 
-                 output_param = "") -> None:
+                 output_param = "", list_input_params = []) -> None:
         self.__namespaces = namespaces
         self.__name = name
         self.__output_param = output_param
-        self.__list_input_params :list[DataFromParam] = []
+        self.__list_input_params :list[DataFromParam] = list_input_params
+        #self.__list_input_params :list[DataFromParam] = []
 
-    def __del__(self):
-        del self.__namespaces
-        del self.__name
-        del self.__output_param 
-        del self.__list_input_params
+    # def __del__(self):
+    #     del self.__namespaces
+    #     del self.__name
+    #     del self.__output_param 
+    #     del self.__list_input_params
     
     @property
     def namespaces(self) -> list:
@@ -111,15 +112,19 @@ class DataFromFunc(object):
     def set_out_param_from_decl(self, out_param:str) -> None:
         self.__output_param = out_param.partition(' (')[0]
 
-    def set_inp_param(self, inp_type:str, inp_name:str) -> None:
+    @property
+    def inp_params(self) -> list:
+        return self.__list_input_params
+    
+    @inp_params.deleter
+    def inp_params(self) -> list:
+        self.__list_input_params = []
+    
+    def set_inp_params(self, inp_type:str, inp_name:str) -> None:
         input_params :DataFromParam = DataFromParam()
         input_params.type = inp_type
         input_params.name = inp_name
         self.__list_input_params.append(input_params)
-
-    
-    def get_inp_params(self) -> list:
-        return self.__list_input_params
 
     def get_inp_param_by_idx(self, index:int) -> DataFromParam:
         return self.__list_input_params[index]
