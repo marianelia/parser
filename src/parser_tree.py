@@ -2,10 +2,15 @@ import clang.cindex
 import typing
 from classes_for_tree import *
 from data import Data
+import copy
 
 class Parser:
     def __init__(self) -> None:
         self.__data = Data()
+
+    @property
+    def data(self):
+        return self.__data
 
     def parser_tree_from_file(self, file_name:str, args:list) -> None:
         index = clang.cindex.Index.create()
@@ -16,16 +21,18 @@ class Parser:
     def serialize_data_to_binary_file(self, path_to_file:str):
         self.__data.serialize_data(path_to_file)
 
-    def __get_namespaces(self, node, el_of_tree):
+    def __find_namespaces(self, node, el_of_tree):
+        del el_of_tree.namespaces
         while node.kind == clang.cindex.CursorKind.NAMESPACE:
             el_of_tree.set_namespace(node.spelling)
+            # print(node.spelling)
             node = node.lexical_parent
 
     def __get_function(self, node) -> DataFromFunc:
         data_func = DataFromFunc()
-        data_func.set_name(node.spelling)
+        data_func.name = node.spelling
         data_func.set_out_param_from_decl(node.type.spelling)
-        self.__get_namespaces(node.lexical_parent, data_func)
+        self.__find_namespaces(node.lexical_parent, data_func)
         self.__find_input_param(node, data_func)
         #data_func.print_for_tests()
         return data_func
@@ -34,15 +41,19 @@ class Parser:
         data_func = self.__get_function(node)
         self.__data.add_data_from_func(data_func)
 
+        # del data_func.namespaces
+        del data_func
+
     def __get_struct(self, node, defult_access) -> None:
         struct:DataFromStruct = DataFromStruct()
-        struct.set_access(defult_access)
-        struct.set_name(node.spelling)
-        self.__get_namespaces(node.lexical_parent, struct)
+        struct.access = defult_access
+        struct.name = node.spelling 
+        self.__find_namespaces(node.lexical_parent, struct)
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
-        #struct.print_for_tests()
+        # struct.print_for_tests()
         self.__data.add_data_from_struct(struct)
+        #del struct
 
     def __find_access(self, node) -> Access:
         if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
@@ -53,17 +64,19 @@ class Parser:
             return Access.PRIVATE
 
     def __find_method(self, node, struct:DataFromStruct) -> None: 
-        curr_access = struct.get_access()
+        curr_access = struct.access
         children_node = node.get_children()
         for child in children_node:
             if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
                 curr_access = self.__find_access(child)
 
             if child.kind == clang.cindex.CursorKind.CXX_METHOD:
-                struct.set_method(curr_access, self.__get_function(child))
+                func = self.__get_function(child)
+                struct.set_method(curr_access, func)
+                del func.namespaces
         
     def __find_variable(self, node, struct:DataFromStruct) -> None:
-        curr_access = struct.get_access()
+        curr_access = struct.access
         children_node = node.get_children()
         for child in children_node:
             if child.kind == clang.cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
@@ -74,9 +87,11 @@ class Parser:
         
 
     def __find_input_param(self, node, result_func:DataFromFunc) -> None:
+        del result_func.inp_params
         input_params = node.get_children()
         for param in input_params:
-            result_func.set_inp_param(param.type.spelling, param.spelling) 
+            #result_func.set_inp_param(param.type.spelling, param.spelling) 
+            result_func.set_inp_params(param.type.spelling, param.spelling )
             # возможно нужен будет displayname
 
     def __find_node_function(self, node) -> None:

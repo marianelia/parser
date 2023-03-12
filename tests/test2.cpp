@@ -1,3 +1,5 @@
+void a();
+
 namespace ns1
 {
     class cl
@@ -11,7 +13,10 @@ namespace ns1
     };
 namespace ns2
 {
-    int t(long long arg1, long long arg2);
+    namespace ns3
+    {
+            int t(long long arg1, long long arg2);
+    }
 }
 }
 

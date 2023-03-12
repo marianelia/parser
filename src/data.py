@@ -26,7 +26,7 @@ class Data:
 
         serialize_to_string = file_obj.SerializeToString()
         self.serialize_data_to_file(path_to_output_file + "test", serialize_to_string)
-        print(serialize_to_string)
+        # print(serialize_to_string)
         file_obj.ParseFromString(serialize_to_string)
         print(file_obj)
 
@@ -37,14 +37,14 @@ class Data:
 
     def serialize_struct(self, struct_proto_format, struct:DataFromStruct):
         #struct.print_for_tests()
-        struct_proto_format.namespace.extend(struct.get_namespaces())
-        struct_proto_format.name = struct.get_name()
+        struct_proto_format.namespace.extend(struct.namespaces)
+        struct_proto_format.name = struct.name
 
-        for num_method in range(len(struct.get_methods())):
+        for num_method in range(len(struct.methods)):
             method_obj = struct_proto_format.methods.add()
             self.serialize_method(method_obj, struct.get_method_by_index(num_method))
 
-        for num_var in range(len(struct.get_variable())):
+        for num_var in range(len(struct.variables)):
             var_obj = struct_proto_format.variables.add()
             self.serialize_variable(var_obj, struct.get_variable_by_index(num_var))
 
@@ -61,20 +61,20 @@ class Data:
         return None
 
     def serialize_variable(self, var_proto_format, var:DataFromVariable):
-        var_proto_format.access = self.enum_access_to_protobuf(var.get_access())
-        self.serialize_input_params(var_proto_format.variable, var.get_variable())
+        var_proto_format.access = self.enum_access_to_protobuf(var.access)
+        self.serialize_input_params(var_proto_format.variable, var.variable)
     
     def serialize_method(self, method_proto_format, method:DataFromMethod):
         method_proto_format.access = self.enum_access_to_protobuf(method.get_access())
         self.serialize_func(method_proto_format.function, method.get_function())        
 
     def serialize_func(self, func_proto_format, func:DataFromFunc):
-        func_proto_format.namespace.extend(func.get_namespaces())
-        func_proto_format.name = func.get_name()
-        func_proto_format.output_param = func.get_out_param()
-        for num_inp_param in range(len(func.get_inp_params())):
+        func_proto_format.namespace.extend(func.namespaces)
+        func_proto_format.name = func.name
+        func_proto_format.output_param = func.output_param
+        for num_inp_param in range(len(func.inp_params)):
             inp_param_obj = func_proto_format.input_params.add()
-            self.serialize_input_params(inp_param_obj, func.get_inp_param(num_inp_param))
+            self.serialize_input_params(inp_param_obj, func.get_inp_param_by_idx(num_inp_param))
 
     def serialize_input_params(self, param_proto_format, inp_param:DataFromParam):
         param_proto_format.name = inp_param.get_name()
