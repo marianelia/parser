@@ -167,12 +167,13 @@ class DataFromMethod:
 
 class DataFromStruct:
     def __init__(self, namespaces = [], name = "", 
-                 default_access = Access.NONE) -> None:
+                 default_access = Access.NONE, constructor = DataFromFunc()) -> None:
         self.__namespaces  = namespaces
         self.__name = name
         self.__default_access = default_access
         self.__list_methods :list[DataFromMethod] = []
         self.__list_variable :list[DataFromVariable] = []
+        self.__constructor :DataFromFunc = constructor
 
     def __del__(self):
         del self.__namespaces
@@ -180,6 +181,14 @@ class DataFromStruct:
         del self.__default_access
         del self.__list_methods
         del self.__list_variable
+
+    @property 
+    def constructor(self) -> DataFromFunc:
+        return self.__constructor
+    
+    @constructor.setter
+    def constructor(self, func:DataFromFunc):
+        self.__constructor = func
 
     @property
     def access(self) -> Access:

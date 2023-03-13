@@ -2,7 +2,6 @@ import clang.cindex
 import typing
 from classes_for_tree import *
 from data import Data
-import copy
 
 class Parser:
     def __init__(self) -> None:
@@ -34,15 +33,23 @@ class Parser:
         data_func.set_out_param_from_decl(node.type.spelling)
         self.__find_namespaces(node.lexical_parent, data_func)
         self.__find_input_param(node, data_func)
-        #data_func.print_for_tests()
+        # data_func.print_for_tests()
         return data_func
 
     def __get_info_from_function_node(self, node) -> None:
         data_func = self.__get_function(node)
         self.__data.add_data_from_func(data_func)
-
+        
         # del data_func.namespaces
         del data_func
+
+    def __find_constructor_by_struct(self, node, struct) -> None:
+        children_node = node.get_children()
+        for child in children_node:
+            if (child.kind == clang.cindex.CursorKind.CONSTRUCTOR):
+                #print(child.spelling)
+                struct.constructor = self.__get_function(child)
+
 
     def __get_struct(self, node, defult_access) -> None:
         struct:DataFromStruct = DataFromStruct()
@@ -51,6 +58,7 @@ class Parser:
         self.__find_namespaces(node.lexical_parent, struct)
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
+        self.__find_constructor_by_struct(node, struct)
         # struct.print_for_tests()
         self.__data.add_data_from_struct(struct)
         #del struct
@@ -89,9 +97,8 @@ class Parser:
     def __find_input_param(self, node, result_func:DataFromFunc) -> None:
         del result_func.inp_params
         input_params = node.get_children()
-        for param in input_params:
-            #result_func.set_inp_param(param.type.spelling, param.spelling) 
-            result_func.set_inp_params(param.type.spelling, param.spelling )
+        for param in input_params: 
+            result_func.set_inp_params(param.type.spelling, param.spelling)
             # возможно нужен будет displayname
 
     def __find_node_function(self, node) -> None:

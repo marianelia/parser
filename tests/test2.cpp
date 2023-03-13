@@ -4,6 +4,7 @@ namespace ns1
 {
     class cl
     {
+        cl(int t);
         public:
             void func(int v1, int v2);
             int f2();
