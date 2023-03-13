@@ -14,6 +14,7 @@ message Struct
 
     repeated Method methods = 3;
     repeated Variable variables = 4; 
+    Function constructor = 5;
 }
 
 message Method

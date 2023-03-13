@@ -19,7 +19,6 @@ if __name__ == '__main__':
     for root, dirs, files in os.walk(path_to_project):
         for name in files:
             if(name.endswith(".cpp")):
-                # print(os.path.join(root, name))
                 parser_tree = Parser()
                 parser_tree.parser_tree_from_file(os.path.join(root, name), ['-std=c++17'])
                 parser_tree.serialize_data_to_binary_file("/home/maria/diploma/generator/tests/")

@@ -48,6 +48,8 @@ class Data:
             var_obj = struct_proto_format.variables.add()
             self.serialize_variable(var_obj, struct.get_variable_by_index(num_var))
 
+        self.serialize_func(struct_proto_format.constructor, struct.constructor)
+
 
     def enum_access_to_protobuf(self, access:Access):
         if (access == Access.PUBLIC):
