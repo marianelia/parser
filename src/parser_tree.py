@@ -14,6 +14,7 @@ class Parser:
     def parser_tree_from_file(self, file_name:str, args:list) -> None:
         index = clang.cindex.Index.create()
         translation_unit = index.parse(file_name, args=args)
+        self.data.files_name = file_name
         self.__filter_for_start_declarations(translation_unit.cursor.get_children())    
 
     #переделать после переписывания архитектуры
