@@ -2,19 +2,20 @@ from classes_for_tree import *
 import code_data_pb2
 
 class Data:
-    def __init__(self, files_name = "") -> None:
+    def __init__(self, file_names = []) -> None:
         self.__list_data_func :list[DataFromFunc] = []
         self.__list_data_struct :list[DataFromStruct] = []
-        self.__files_name:str = files_name #в дальнейшем list[str]
+        #self.__files_name:str = files_name #в дальнейшем list[str]
+        self.__file_names = file_names #в дальнейшем list[str]
         #...
 
     @property
-    def files_name(self):
-        return self.__files_name
+    def file_names(self):
+        return self.__file_names
     
-    @files_name.setter
-    def files_name(self, file_name:str):
-        self.__files_name = file_name
+    @file_names.setter
+    def file_names(self, file_name:str):
+        self.__file_names.append(file_name)
 
     def add_data_from_func(self, data:DataFromFunc) -> None:
         self.__list_data_func.append(data)
@@ -23,8 +24,8 @@ class Data:
         self.__list_data_struct.append(data)
 
     def serialize_data(self, path_to_output_file:str):
-        file_obj = code_data_pb2.File()
-        file_obj.file_name = self.files_name #в дальнейшем перепишется proto
+        file_obj = code_data_pb2.Project()
+        file_obj.path_to_files = self.files_name #в дальнейшем перепишется proto
 
         for num_data_func in range(len(self.__list_data_func)):
             func_obj = file_obj.function_list.add()
