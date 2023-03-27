@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x13src/code_data.proto\"`\n\x07Project\x12\x15\n\rpath_to_files\x18\x01 \x03(\t\x12\x1c\n\x0bstruct_list\x18\x02 \x03(\x0b\x32\x07.Struct\x12 \n\rfunction_list\x18\x03 \x03(\x0b\x32\t.Function\"\x81\x01\n\x06Struct\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x07methods\x18\x03 \x03(\x0b\x32\x07.Method\x12\x1c\n\tvariables\x18\x04 \x03(\x0b\x32\t.Variable\x12\x1e\n\x0b\x63onstructor\x18\x05 \x01(\x0b\x32\t.Function\">\n\x06Method\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x1b\n\x08\x66unction\x18\x02 \x01(\x0b\x32\t.Function\"_\n\x08\x46unction\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0coutput_param\x18\x03 \x01(\t\x12\x1c\n\x0cinput_params\x18\x04 \x03(\x0b\x32\x06.Param\"=\n\x08Variable\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x18\n\x08variable\x18\x02 \x01(\x0b\x32\x06.Param\"#\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t*:\n\x06\x41\x63\x63\x65ss\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PUBLIC\x10\x01\x12\x0b\n\x07PRIVATE\x10\x02\x12\r\n\tPROTECTED\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x13src/code_data.proto\"\x1f\n\x07Project\x12\x14\n\x05\x66iles\x18\x01 \x03(\x0b\x32\x05.File\"\\\n\x04\x46ile\x12\x14\n\x0cpath_to_file\x18\x01 \x01(\t\x12\x1c\n\x0bstruct_list\x18\x02 \x03(\x0b\x32\x07.Struct\x12 \n\rfunction_list\x18\x03 \x03(\x0b\x32\t.Function\"\x81\x01\n\x06Struct\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x07methods\x18\x03 \x03(\x0b\x32\x07.Method\x12\x1c\n\tvariables\x18\x04 \x03(\x0b\x32\t.Variable\x12\x1e\n\x0b\x63onstructor\x18\x05 \x01(\x0b\x32\t.Function\">\n\x06Method\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x1b\n\x08\x66unction\x18\x02 \x01(\x0b\x32\t.Function\"_\n\x08\x46unction\x12\x11\n\tnamespace\x18\x01 \x03(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0coutput_param\x18\x03 \x01(\t\x12\x1c\n\x0cinput_params\x18\x04 \x03(\x0b\x32\x06.Param\"=\n\x08Variable\x12\x17\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x0e\x32\x07.Access\x12\x18\n\x08variable\x18\x02 \x01(\x0b\x32\x06.Param\"#\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t*:\n\x06\x41\x63\x63\x65ss\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PUBLIC\x10\x01\x12\x0b\n\x07PRIVATE\x10\x02\x12\r\n\tPROTECTED\x10\x03\x62\x06proto3')
 )
 
 _ACCESS = _descriptor.EnumDescriptor(
@@ -49,8 +49,8 @@ _ACCESS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=514,
-  serialized_end=572,
+  serialized_start=543,
+  serialized_end=601,
 )
 _sym_db.RegisterEnumDescriptor(_ACCESS)
 
@@ -70,22 +70,8 @@ _PROJECT = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='path_to_files', full_name='Project.path_to_files', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='struct_list', full_name='Project.struct_list', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='function_list', full_name='Project.function_list', index=2,
-      number=3, type=11, cpp_type=10, label=3,
+      name='files', full_name='Project.files', index=0,
+      number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -103,7 +89,52 @@ _PROJECT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=23,
-  serialized_end=119,
+  serialized_end=54,
+)
+
+
+_FILE = _descriptor.Descriptor(
+  name='File',
+  full_name='File',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='path_to_file', full_name='File.path_to_file', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='struct_list', full_name='File.struct_list', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='function_list', full_name='File.function_list', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=56,
+  serialized_end=148,
 )
 
 
@@ -161,8 +192,8 @@ _STRUCT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=122,
-  serialized_end=251,
+  serialized_start=151,
+  serialized_end=280,
 )
 
 
@@ -199,8 +230,8 @@ _METHOD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=253,
-  serialized_end=315,
+  serialized_start=282,
+  serialized_end=344,
 )
 
 
@@ -251,8 +282,8 @@ _FUNCTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=317,
-  serialized_end=412,
+  serialized_start=346,
+  serialized_end=441,
 )
 
 
@@ -289,8 +320,8 @@ _VARIABLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=414,
-  serialized_end=475,
+  serialized_start=443,
+  serialized_end=504,
 )
 
 
@@ -327,12 +358,13 @@ _PARAM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=477,
-  serialized_end=512,
+  serialized_start=506,
+  serialized_end=541,
 )
 
-_PROJECT.fields_by_name['struct_list'].message_type = _STRUCT
-_PROJECT.fields_by_name['function_list'].message_type = _FUNCTION
+_PROJECT.fields_by_name['files'].message_type = _FILE
+_FILE.fields_by_name['struct_list'].message_type = _STRUCT
+_FILE.fields_by_name['function_list'].message_type = _FUNCTION
 _STRUCT.fields_by_name['methods'].message_type = _METHOD
 _STRUCT.fields_by_name['variables'].message_type = _VARIABLE
 _STRUCT.fields_by_name['constructor'].message_type = _FUNCTION
@@ -342,6 +374,7 @@ _FUNCTION.fields_by_name['input_params'].message_type = _PARAM
 _VARIABLE.fields_by_name['access'].enum_type = _ACCESS
 _VARIABLE.fields_by_name['variable'].message_type = _PARAM
 DESCRIPTOR.message_types_by_name['Project'] = _PROJECT
+DESCRIPTOR.message_types_by_name['File'] = _FILE
 DESCRIPTOR.message_types_by_name['Struct'] = _STRUCT
 DESCRIPTOR.message_types_by_name['Method'] = _METHOD
 DESCRIPTOR.message_types_by_name['Function'] = _FUNCTION
@@ -356,6 +389,13 @@ Project = _reflection.GeneratedProtocolMessageType('Project', (_message.Message,
   # @@protoc_insertion_point(class_scope:Project)
   })
 _sym_db.RegisterMessage(Project)
+
+File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), {
+  'DESCRIPTOR' : _FILE,
+  '__module__' : 'src.code_data_pb2'
+  # @@protoc_insertion_point(class_scope:File)
+  })
+_sym_db.RegisterMessage(File)
 
 Struct = _reflection.GeneratedProtocolMessageType('Struct', (_message.Message,), {
   'DESCRIPTOR' : _STRUCT,

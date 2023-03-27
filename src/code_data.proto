@@ -2,7 +2,12 @@ syntax = "proto3";
 
 message Project
 {
-    repeated string path_to_files = 1;
+    repeated File files = 1;
+}
+
+message File
+{
+    string path_to_file = 1;
     repeated Struct struct_list = 2;
     repeated Function function_list = 3;
 }

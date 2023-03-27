@@ -2,20 +2,19 @@ from classes_for_tree import *
 import code_data_pb2
 
 class Data:
-    def __init__(self, file_names = []) -> None:
+    def __init__(self, file_name = []) -> None:
         self.__list_data_func :list[DataFromFunc] = []
         self.__list_data_struct :list[DataFromStruct] = []
-        #self.__files_name:str = files_name #в дальнейшем list[str]
-        self.__file_names = file_names #в дальнейшем list[str]
+        self.__file_name = file_name # изменить название
         #...
 
     @property
     def file_names(self):
-        return self.__file_names
+        return self.__file_name
     
     @file_names.setter
     def file_names(self, file_name:str):
-        self.__file_names.append(file_name)
+        self.__file_name.append(file_name)
 
     def add_data_from_func(self, data:DataFromFunc) -> None:
         self.__list_data_func.append(data)
@@ -23,28 +22,16 @@ class Data:
     def add_data_from_struct(self, data:DataFromStruct) -> None:
         self.__list_data_struct.append(data)
 
-    def serialize_data(self, path_to_output_file:str):
-        file_obj = code_data_pb2.Project()
-        file_obj.path_to_files = self.files_name #в дальнейшем перепишется proto
+    def serialize_data_one_file(self, file_proto_format):       
+        file_proto_format.path_to_file = self.files_name
 
         for num_data_func in range(len(self.__list_data_func)):
-            func_obj = file_obj.function_list.add()
+            func_obj = file_proto_format.function_list.add()
             self.serialize_func(func_obj, self.__list_data_func[num_data_func])
 
         for num_data_struct in range(len(self.__list_data_struct)):
-            struct_obj = file_obj.struct_list.add()
+            struct_obj = file_proto_format.struct_list.add()
             self.serialize_struct(struct_obj, self.__list_data_struct[num_data_struct])
-
-        serialize_to_string = file_obj.SerializeToString()
-        self.serialize_data_to_file(path_to_output_file + "test", serialize_to_string)
-        # print(serialize_to_string)
-        file_obj.ParseFromString(serialize_to_string)
-        print(file_obj)
-
-    def serialize_data_to_file(self, file_name:str, data:str):
-        with open(file_name, mode="wb") as file:
-            file.write(data)
-        #file.closed
 
     def serialize_struct(self, struct_proto_format, struct:DataFromStruct):
         #struct.print_for_tests()
