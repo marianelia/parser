@@ -2,24 +2,41 @@ import clang.cindex
 import typing
 from classes_for_tree import *
 from data import Data
+import code_data_pb2
 
 class Parser:
-    def __init__(self) -> None:
-        self.__data = Data()
+    def __init__(self):
+        self.__data_from_files :list[Data] = []
 
     @property
-    def data(self):
-        return self.__data
+    def data_from_files(self) -> list:
+        return self.__data_from_files
 
     def parser_tree_from_file(self, file_name:str, args:list) -> None:
         index = clang.cindex.Index.create()
         translation_unit = index.parse(file_name, args=args)
-        self.data.files_name = file_name
+        data = Data()
+        data.files_name = file_name
+        self.__data_from_files.append(data)
         self.__filter_for_start_declarations(translation_unit.cursor.get_children())    
 
     #переделать после переписывания архитектуры
     def serialize_data_to_binary_file(self, path_to_file:str):
-        self.__data.serialize_data(path_to_file)
+        project_obj = code_data_pb2.Project()
+        for i in range(len(self.__data_from_files)):
+            file_obj = project_obj.files.add()
+            self.__data_from_files[i].serialize_data_one_file(file_obj)
+
+        serialize_to_string = project_obj.SerializeToString()
+        self.put_data_to_file(path_to_file + "test", serialize_to_string)
+        # print(serialize_to_string)
+        project_obj.ParseFromString(serialize_to_string)
+        print(project_obj)
+
+    def put_data_to_file(self, file_name:str, data:str):
+        with open(file_name, mode="wb") as file:
+            file.write(data)
+        #file.closed
 
     def __find_namespaces(self, node, el_of_tree):
         del el_of_tree.namespaces
@@ -39,7 +56,7 @@ class Parser:
 
     def __get_info_from_function_node(self, node) -> None:
         data_func = self.__get_function(node)
-        self.__data.add_data_from_func(data_func)
+        self.__data_from_files[-1].add_data_from_func(data_func)
         
         # del data_func.namespaces
         del data_func
@@ -61,7 +78,7 @@ class Parser:
         self.__find_variable(node, struct)
         self.__find_constructor_by_struct(node, struct)
         # struct.print_for_tests()
-        self.__data.add_data_from_struct(struct)
+        self.__data_from_files[-1].add_data_from_struct(struct)
         #del struct
 
     def __find_access(self, node) -> Access:
