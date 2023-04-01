@@ -77,7 +77,7 @@ class Parser:
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
         self.__find_constructor_by_struct(node, struct)
-        # struct.print_for_tests()
+        struct.print_for_tests()
         self.__data_from_files[-1].add_data_from_struct(struct)
         #del struct
 
@@ -116,8 +116,9 @@ class Parser:
         del result_func.inp_params
         input_params = node.get_children()
         for param in input_params: 
-            result_func.set_inp_params(param.type.spelling, param.spelling)
-            # возможно нужен будет displayname
+            if param.kind == clang.cindex.CursorKind.PARM_DECL:
+                result_func.set_inp_params(param.type.spelling, param.spelling)
+                # возможно нужен будет displayname
 
     def __find_node_function(self, node) -> None:
         if node.kind == clang.cindex.CursorKind.FUNCTION_DECL:
