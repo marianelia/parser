@@ -5,7 +5,7 @@ class Data:
     def __init__(self, file_name = []) -> None:
         self.__list_data_func :list[DataFromFunc] = []
         self.__list_data_struct :list[DataFromStruct] = []
-        self.__file_name = file_name # изменить название
+        self.__file_name = file_name
         #...
 
     @property
@@ -23,7 +23,8 @@ class Data:
         self.__list_data_struct.append(data)
 
     def serialize_data_one_file(self, file_proto_format):       
-        file_proto_format.path_to_file = self.files_name
+        # file_proto_format.path_to_file = self.files_name
+        file_proto_format.path_to_file = self.file_names
 
         for num_data_func in range(len(self.__list_data_func)):
             func_obj = file_proto_format.function_list.add()

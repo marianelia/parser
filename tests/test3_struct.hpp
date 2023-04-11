@@ -1,4 +1,4 @@
-void a();
+
 
 namespace ns1
 {

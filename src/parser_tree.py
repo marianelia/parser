@@ -5,8 +5,8 @@ from data import Data
 import code_data_pb2
 
 class Parser:
-    def __init__(self):
-        self.__data_from_files :list[Data] = []
+    def __init__(self, data_from_files = []):
+        self.__data_from_files :list[Data] = data_from_files
 
     @property
     def data_from_files(self) -> list:
@@ -28,15 +28,19 @@ class Parser:
             self.__data_from_files[i].serialize_data_one_file(file_obj)
 
         serialize_to_string = project_obj.SerializeToString()
-        self.put_data_to_file(path_to_file + "test", serialize_to_string)
+        self.put_data_to_file(path_to_file, serialize_to_string)
         # print(serialize_to_string)
         project_obj.ParseFromString(serialize_to_string)
         print(project_obj)
+
 
     def put_data_to_file(self, file_name:str, data:str):
         with open(file_name, mode="wb") as file:
             file.write(data)
         #file.closed
+
+    def add_data_to_list(self, data:Data):
+        self.__data_from_files.append(data)
 
     def __find_namespaces(self, node, el_of_tree):
         del el_of_tree.namespaces
@@ -77,7 +81,7 @@ class Parser:
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
         self.__find_constructor_by_struct(node, struct)
-        struct.print_for_tests()
+        # struct.print_for_tests()
         self.__data_from_files[-1].add_data_from_struct(struct)
         #del struct
 
