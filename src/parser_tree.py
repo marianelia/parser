@@ -16,7 +16,7 @@ class Parser:
         index = clang.cindex.Index.create()
         translation_unit = index.parse(file_name, args=args)
         data = Data()
-        data.files_name = file_name
+        data.file_name = file_name
         self.__data_from_files.append(data)
         self.__filter_for_start_declarations(translation_unit.cursor.get_children())    
 
@@ -48,6 +48,7 @@ class Parser:
             el_of_tree.set_namespace(node.spelling)
             # print(node.spelling)
             node = node.lexical_parent
+        el_of_tree.arrange_namespaces()
 
     def __get_function(self, node) -> DataFromFunc:
         data_func = DataFromFunc()

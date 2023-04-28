@@ -1,0 +1,26 @@
+
+è
+//home/maria/diploma/parser/tests/test1_func.hpp\
+test1_funcvoid"
+param1	long long"
+param2double"
+param3int"
+param	const int
+ª
+//home/maria/diploma/parser/tests/test2_func.hppä
+
+namespace1
+
+namespace2
+
+namespace3test2_func_with_paramint"
+param1	long long"
+param2double"
+param3int"
+param	const int{
+
+namespace1test2_func_without_param	long long"
+param1	long long"
+param2double"
+param3int"
+param	const int

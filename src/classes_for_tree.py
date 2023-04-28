@@ -34,8 +34,8 @@ class DataFromParam:
     type = property(get_type, set_type)
 
     def print_for_tests(self)-> None:
-        print(self.name)
-        print(self.type)
+        print('input param: type: {0}\tname: {1}'.
+              format(self.name, self.type))
 
 class DataFromVariable:
     def __init__(self, access: Access, param : DataFromParam) -> None:
@@ -59,7 +59,7 @@ class DataFromVariable:
         return self.__variable
 
     def print_for_tests(self)-> None:
-        print(self.__access)
+        print('variable: access: {0}'.format(self.__access))
         self.__variable.print_for_tests()
 
 class DataFromFunc(object):
@@ -128,10 +128,16 @@ class DataFromFunc(object):
     def get_inp_param_by_idx(self, index:int) -> DataFromParam:
         return self.__list_input_params[index]
 
+    def arrange_namespaces(self):
+        namespaces_in_right_order = []
+        for ns in reversed(self.__namespaces):
+            namespaces_in_right_order.append(ns)
+        self.__namespaces = namespaces_in_right_order
+
     def print_for_tests(self) -> None:
-        print(self.__namespaces)
-        print(self.__name)
-        print(self.__output_param)
+        print('namespaces: {0}'.format(self.__namespaces))
+        print('name: {0}'.format(self.__name))
+        print('output_param: {0}'.format(self.__output_param))
         for num_inp_param in range(len(self.__list_input_params)):
             self.__list_input_params[num_inp_param].print_for_tests()
 
@@ -161,7 +167,7 @@ class DataFromMethod:
     function = property(get_function, set_function)
         
     def print_for_tests(self)-> None:
-        print(self.__access)
+        print('method: access: {0}'.format(self.__access))
         self.__function.print_for_tests()
 
 
@@ -232,6 +238,14 @@ class DataFromStruct:
         variable :DataFromVariable = DataFromVariable(access, var)
         self.__list_variable.append(variable)
 
+
+    def arrange_namespaces(self):
+        namespaces_in_right_order = []
+        for ns in reversed(self.__namespaces):
+            namespaces_in_right_order.append(ns)
+        self.__namespaces = namespaces_in_right_order
+        del namespaces_in_right_order
+
     @property
     def variables(self) -> list:
         return self.__list_variable
@@ -240,8 +254,9 @@ class DataFromStruct:
         return self.__list_variable[index]
 
     def print_for_tests(self)-> None:
-        print(self.__namespaces)
-        print(self.__name)
+        print('struct: default access: {0}'.format(self.__default_access))
+        print('namespaces: {0}'.format(self.__namespaces))
+        print('name: {0}'.format(self.__name))
         
         for num_method in range(len(self.__list_methods)):
             self.__list_methods[num_method].print_for_tests()
