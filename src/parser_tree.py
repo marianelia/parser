@@ -46,7 +46,6 @@ class Parser:
         del el_of_tree.namespaces
         while node.kind == clang.cindex.CursorKind.NAMESPACE:
             el_of_tree.set_namespace(node.spelling)
-            # print(node.spelling)
             node = node.lexical_parent
         el_of_tree.arrange_namespaces()
 
@@ -56,7 +55,7 @@ class Parser:
         data_func.set_out_param_from_decl(node.type.spelling)
         self.__find_namespaces(node.lexical_parent, data_func)
         self.__find_input_param(node, data_func)
-        # data_func.print_for_tests()
+        data_func.print_for_tests()
         return data_func
 
     def __get_info_from_function_node(self, node) -> None:
@@ -82,7 +81,7 @@ class Parser:
         self.__find_method(node, struct)
         self.__find_variable(node, struct)
         self.__find_constructor_by_struct(node, struct)
-        # struct.print_for_tests()
+        struct.print_for_tests()
         self.__data_from_files[-1].add_data_from_struct(struct)
         #del struct
 
