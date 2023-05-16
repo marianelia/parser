@@ -29,15 +29,13 @@ if __name__ == '__main__':
 
         for name in files:
             if(name.endswith(".hpp")):
-                parser_tree.parser_tree_from_file(os.path.join(root, name), ['-nostdinc','-std=c++17'])
+                parser_tree.parser_tree_from_file(os.path.join(root, name), ['-std=c++17'])
 
+#'-nostdinc'
 
     if path_to_project[-1] != '/':
         path_to_project += '/'
 
-    print(path_to_project + library_name[0])
-    print(path_to_project)
-    print(library_name[0][:-3]+'_proto')
     parser_tree.serialize_data_to_binary_file(path_to_project + library_name[0][:-3]+'_proto') 
     del parser_tree
                 

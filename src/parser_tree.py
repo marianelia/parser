@@ -14,11 +14,13 @@ class Parser:
 
     def parser_tree_from_file(self, file_name:str, args:list) -> None:
         index = clang.cindex.Index.create()
-        translation_unit = index.parse(file_name, args=args)
+        translation_unit = index.parse(file_name, args=args,
+                                       options=clang.cindex.TranslationUnit.PARSE_SKIP_FUNCTION_BODIES |
+                                       clang.cindex.TranslationUnit.PARSE_INCOMPLETE)
         data = Data()
         data.file_name = file_name
         self.__data_from_files.append(data)
-        self.__filter_for_start_declarations(translation_unit.cursor.get_children())    
+        self.__filter_for_start_declarations(translation_unit.cursor.get_children(), file_name)    
 
     #переделать после переписывания архитектуры
     def serialize_data_to_binary_file(self, path_to_file:str):
@@ -147,7 +149,8 @@ class Parser:
             for child in children_node:
                 self.__find_node_struct(child)
 
-    def __filter_for_start_declarations(self, nodes: typing.Iterable[clang.cindex.Cursor]):
+    def __filter_for_start_declarations(self, nodes: typing.Iterable[clang.cindex.Cursor], file_name):
         for node in nodes:
-            self.__find_node_function(node)
-            self.__find_node_struct(node)
+            if node.location.file.name == file_name:
+                self.__find_node_function(node)
+                self.__find_node_struct(node)
