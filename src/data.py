@@ -1,4 +1,4 @@
-from classes_for_tree import *
+from src.data_units import *
 import code_data_pb2
 
 class Data:
@@ -7,14 +7,6 @@ class Data:
         self.__list_data_struct :list[DataFromStruct] = []
         self.__file_name = file_name
         #...
-
-    # @property
-    # def file_names(self):
-    #     return self.__file_name
-    
-    # @file_names.setter
-    # def file_names(self, file_name:str):
-    #     self.__file_name.append(file_name)
         
     @property
     def file_name(self):
