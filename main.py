@@ -11,8 +11,6 @@ if __name__ == '__main__':
     path_to_project = sys.argv[1]
     extension_dict = {}
     parser_tree = Parser()
-
-    
     for root, _, files in os.walk(path_to_project):
         for name in files:
             extension = os.path.splitext(name)[1]
